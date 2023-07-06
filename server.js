@@ -11,6 +11,7 @@ const {
 const app = express();
 
 app.use(express.static('public'));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -58,6 +59,4 @@ app.delete('/api/notes/:id', (req, res) => {
     });
 });
 
-app.listen(process.env.PORT || 3001, () =>
-  console.log(`App listening at http://localhost:${PORT} 🚀`)
-);
+app.listen(process.env.PORT || 3001);
