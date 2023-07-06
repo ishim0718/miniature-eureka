@@ -11,10 +11,9 @@ const {
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(express.static('public'));
 
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
@@ -24,9 +23,6 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-// app.get('*', (req, res) => 
-//   res.sendFile(path.join(__dirname,'/public/index.html'))
-// );
 
 app.get('/api/notes', (req, res) => {
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
@@ -56,13 +52,10 @@ app.delete('/api/notes/:id', (req, res) => {
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      // Make a new array of all tips except the one with the ID provided in the URL
       const result = json.filter((note) => note.note_id !== noteId);
 
-      // Save that array to the filesystem
       writeToFile('./db/db.json', result);
 
-      // Respond to the DELETE request
       res.json(`Item has been deleted 🗑️`);
     });
 });
