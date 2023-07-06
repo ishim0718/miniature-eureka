@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const PORT = 3001;
-const uuid = require('./helpers/uuid')
+const uuid = require('./helpers/uuid');
 
 const {
   readFromFile,
@@ -48,12 +48,11 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes/:id', (req, res) => {
-  const noteId = req.params.note_id;
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
     .then((data) => JSON.parse(data))
     .then((json) => {
-      const result = json.filter((note) => note.note_id !== noteId);
-
+      const result = json.filter((json) => json.note_id !== noteId);
       writeToFile('./db/db.json', result);
 
       res.json(`Item has been deleted 🗑️`);
