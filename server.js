@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const PORT = 3001;
 const uuid = require('./helpers/uuid');
 
 const {
@@ -59,6 +58,6 @@ app.delete('/api/notes/:id', (req, res) => {
     });
 });
 
-app.listen(PORT, () =>
+app.listen(process.env.PORT || 3001, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
